@@ -9,11 +9,12 @@ console.log(typeof money);
 console.log(typeof income);
 console.log(typeof deposit);
 
-console.log(addExpenses.length)
+console.log(addExpenses.length);
 
 console.log('"Период равен '+ period + ' месяцев" и "Цель заработать ' + mission +' рублей/долларов/гривен/юани"');
 
-console.log(addExpenses.toLowerCase(addExpenses.split(', ')));
+addExpenses = addExpenses.toLowerCase();
+console.log(addExpenses.split(', '));
 
 let budgetDay = money / 30; //доход за день
 
