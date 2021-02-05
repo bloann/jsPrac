@@ -1,15 +1,10 @@
-let num = 266219; // число
-let str = num.toString(); // преобразуем в строку
-let numLenght = str.length; // вычисляем длинну
-let a = 1; // это еденица для умножения
-
-for(let i = 0; i<numLenght; i++) {
-    let x = str[i]; // берем число из массива
-    a = a * x; // умножаем числа
+function newOne(randVar){
+    if (typeof(randVar) == 'number'){
+        alert('Sike Thats the wrong Number');
+    }else{
+        randVar.trim();
+        randVar = randVar.slice(0, 30) + '...';
+        return randVar;
+    }
 }
-
-console.log(a); // получаем результат
-
-console.log(a**3); // возодим в степень 3 при помощи оператора **
-
-console.log(String(a**3).slice(0, 2)); // вывод первых двух цифр 
+console.log(newOne('       With their tanks and their bombs and their bombs and their guns       '));
