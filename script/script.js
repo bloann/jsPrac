@@ -23,14 +23,13 @@ switch (lang){
         console.log('Error');
 }
 //третий способ
-let matrix = {
-    en: ['Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday'],
-    ru: ['Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье']
-};
-console.log(matrix[lang]);
+let matrix = [];
+matrix['en'] = ['Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday'];
+matrix['ru'] = ['Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье'];
+
+console.log(String(matrix[lang]));
 
 // второе задание
 let namePerson = prompt('Введите имя');
 
-let result = namePerson === 'Артем' ? console.log('директор') : false;
-result = namePerson === 'Максим' ? console.log('преподаватель') : console.log('студент');
+let result = namePerson === 'Артем' ? console.log('директор') : namePerson === 'Максим' ? console.log('преподаватель') : console.log('студент');
