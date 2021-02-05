@@ -1,15 +1,36 @@
-let num = 266219; // число
-let str = num.toString(); // преобразуем в строку
-let numLenght = str.length; // вычисляем длинну
-let a = 1; // это еденица для умножения
+let lang = prompt('Выберите язык(ru/en)');
 
-for(let i = 0; i<numLenght; i++) {
-    let x = str[i]; // берем число из массива
-    a = a * x; // умножаем числа
+let enWeek = 'Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday';
+let ruWeek = 'Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье';
+
+// первый способ с if
+if (lang == 'ru'){
+    console.log(ruWeek);
+} else if (lang == 'en'){
+    console.log(enWeek);
+} else{
+    console.log('Error');
 }
+// второй способ с switch-case
+switch (lang){
+    case('ru'):
+        console.log(ruWeek);
+        break;
+    case('en'):
+        console.log(enWeek);
+        break;
+    default:
+        console.log('Error');
+}
+//третий способ
+let matrix = {
+    en: ['Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday'],
+    ru: ['Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье']
+};
+console.log(matrix[lang]);
 
-console.log(a); // получаем результат
+// второе задание
+let namePerson = prompt('Введите имя');
 
-console.log(a**3); // возодим в степень 3 при помощи оператора **
-
-console.log(String(a**3).slice(0, 2)); // вывод первых двух цифр 
+let result = namePerson === 'Артем' ? console.log('директор') : false;
+result = namePerson === 'Максим' ? console.log('преподаватель') : console.log('студент');
