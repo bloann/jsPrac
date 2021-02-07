@@ -15,7 +15,7 @@ function game(){
                 
                     if(userNum == randNum){
                         alert('Поздравляю, Вы угадали!!!');
-
+                        game();
                     } else if(userNum < randNum){
                         i--;
                         alert('Загаданное число больше, осталось попыток ' + i);
