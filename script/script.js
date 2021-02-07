@@ -36,8 +36,8 @@ function getExpensesMonth(){ // Расходы за месяц
             expenses[i] = prompt('Введите обязательную статью расходов?');
             do{
                 amount = prompt('Во сколько это обойдется?', 500);
-                sum += parseFloat(amount);
             } while (!isNumber(amount));
+            sum += parseFloat(amount);
     }
     return sum;
 }
