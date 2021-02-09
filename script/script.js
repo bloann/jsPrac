@@ -1,15 +1,47 @@
-let num = 266219; // число
-let str = num.toString(); // преобразуем в строку
-let numLenght = str.length; // вычисляем длинну
-let a = 1; // это еденица для умножения
-
-for(let i = 0; i<numLenght; i++) {
-    let x = str[i]; // берем число из массива
-    a = a * x; // умножаем числа
+let week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+function getDay(){
+    let weekday = new Date().getDay();
+    switch(weekday){
+        case(0):
+            return 'Воскресенье';
+            break;
+        case(1):
+            return 'Понедельник';
+            break;
+        case(2):
+            return 'Вторник';
+            break;
+        case(3):
+            return 'Среда';
+            break;
+        case(4):
+            return 'Четверг';
+            break;
+        case(5):
+            return 'Пятница';
+            break;
+        case(6):
+            return 'Суббота';
+            break;
+    }
 }
 
-console.log(a); // получаем результат
+for(let key in week){
+    switch(week[key]){
+        case(getDay()):
+            console.log('%c' + week[key], 'font-weight: bold;');
+            break;
+        case('Суббота'):
+            console.log('%c' + week[key], 'font-style: italic;');
+            break;
+        case('Воскресенье'):
+            console.log('%c' + week[key], 'font-style: italic;');
+            break;
+        default:
+            console.log(week[key]);
+            break;
+    }
+}
 
-console.log(a**3); // возодим в степень 3 при помощи оператора **
 
-console.log(String(a**3).slice(0, 2)); // вывод первых двух цифр 
+// console.log('%c' + week[1], 'font-weight: bold;');
