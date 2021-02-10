@@ -29,16 +29,16 @@ function getDay(){
 for(let key in week){
     switch(week[key]){
         case(getDay()):
-            console.log('%c' + week[key], 'font-weight: bold;');
+            document.writeln(week[key].bold() + '<br>');
             break;
         case('Суббота'):
-            console.log('%c' + week[key], 'font-style: italic;');
+            document.writeln(week[key].italics() + '<br>');
             break;
         case('Воскресенье'):
-            console.log('%c' + week[key], 'font-style: italic;');
+            document.writeln(week[key].italics());
             break;
         default:
-            console.log(week[key]);
+            document.writeln(week[key] + '<br>');
             break;
     }
 }
