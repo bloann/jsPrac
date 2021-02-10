@@ -40,11 +40,14 @@ let appData = {
         }
 
         appData.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'интернет, такси, коммуналка');
+        
         appData.addExpenses = appData.addExpenses.toLowerCase().split(', ');
+
         for(let key in appData.addExpenses){
             appData.addExpenses[key] = appData.addExpenses[key].charAt(0).toUpperCase() + appData.addExpenses[key].slice(1);
         }
         console.log(appData.addExpenses.join(', '));
+
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
         for (let i = 0; i < 2; i++) {
