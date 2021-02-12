@@ -101,6 +101,7 @@ let appData = {
         });
     },
     getIncome: function(){
+        appData.incomeMonth = 0;
         incomeItems.forEach(function(item){
             let itemIncome = item.querySelector('.income-title').value;
             let cashIncome = item.querySelector('.income-amount').value;
@@ -137,6 +138,7 @@ let appData = {
     getBudget: function (){
         appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
         appData.budgetDay = appData.budgetMonth / 30;
+        appData.expensesMonth = 0;
     },
 
     getTargetMonth: function(){
