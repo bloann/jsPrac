@@ -168,11 +168,3 @@ expensesButtonPlus.addEventListener('click', appData.addExpensesBlock);
 incomeButtonPlus.addEventListener('click', appData.addIncomeBlock);
 periodInputSelect.addEventListener('change', appData.getValue);
 periodInputSelect.addEventListener('change', appData.periodChange);
-
-
-
-// if(appData.getTargetMonth <= 0){
-//     console.log('Цель не будет достигнута');
-// }else{
-//     console.log('Цель будет достигнута за ' + Math.ceil(appData.getTargetMonth()) + ' месяцев');
-// }
