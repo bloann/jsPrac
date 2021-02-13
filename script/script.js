@@ -67,6 +67,9 @@ let appData = {
         resultAdditionalIncome.value = appData.addIncome.join(' , ');
         resultTargetMonth.value = Math.ceil(appData.getTargetMonth());
         resultIncomePeriod.value = appData.calcSavedMoney();
+        
+        periodInputSelect.addEventListener('input', appData.getValue);
+        periodInputSelect.addEventListener('input', appData.periodChange);
 
         
 
@@ -168,5 +171,3 @@ setInterval(() => appData.checkReady(), 1000);
 buttonIdStart.addEventListener('click', appData.start);
 expensesButtonPlus.addEventListener('click', appData.addExpensesBlock);
 incomeButtonPlus.addEventListener('click', appData.addIncomeBlock);
-periodInputSelect.addEventListener('change', appData.getValue);
-periodInputSelect.addEventListener('change', appData.periodChange);
