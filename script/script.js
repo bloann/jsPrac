@@ -1,5 +1,10 @@
 'use strict'
 
+let body = document.querySelector('body');
+let div = document.createElement('div');
+body.append(div);
+console.log(div);
+
 let nowDate = function(){
     let year = new Date().getFullYear();
 
@@ -44,11 +49,10 @@ let nowDate = function(){
     };
     changeSecondsLable();
 
-    let realDate = ('Сегодня ' + nowDay + ', ' + monthAndDay + ' ' + year + ' года, ' + nowHour + ' ' + nowMinutes + nowSeconds + '<br>');
-    document.write(realDate);
+    let todayDate = ('Сегодня ' + nowDay + ', ' + monthAndDay + ' ' + year + ' года, ' + nowHour + ' ' + nowMinutes + nowSeconds + '<br>');
+    return todayDate;
     // 'Сегодня Вторник, 4 февраля 2020 года, 21 час 5 минут 33 секунды'
 };
-setInterval(() => nowDate(), 1000);
 
 let shortNowDate = function(){
     let nowDate = new Date();
@@ -71,8 +75,9 @@ let shortNowDate = function(){
         }
         return prop;
     };
-    let realDate = (plusZero(day) + '.' + plusZero(month) + '.' + year + ' - ' + plusZero(hour) + ':' + plusZero(minutes) + ':' + plusZero(seconds) + '<br>');
-    document.write(realDate);
+    let realDate = (plusZero(day) + '.' + plusZero(month) + '.' + year + ' - ' + plusZero(hour) + ':' + plusZero(minutes) + ':' + plusZero(seconds));
+    return realDate;
     //04.02.2020 - 21:05:33
 };
-setInterval(() => shortNowDate(), 1000);
+
+setInterval(() => div.innerHTML = nowDate() + shortNowDate(), 1000);
