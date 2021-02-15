@@ -3,7 +3,6 @@
 let body = document.querySelector('body');
 let div = document.createElement('div');
 body.append(div);
-console.log(div);
 
 let nowDate = function(){
     let year = new Date().getFullYear();
@@ -15,36 +14,36 @@ let nowDate = function(){
 
     let nowHour = new Date().getHours();
     let changeHoursLabel = function(){
-        if(nowHour === 0 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 ) {
-                nowHour = nowHour + ' часов';
-        }else if(nowHour === 1 | 21){
+        if(nowHour === 1 || nowHour === 21){
                 nowHour = nowHour + ' час';
-        }else if (nowHour === 2 | 3 | 4 | 22 | 23){
+        }else if (nowHour === 2 || nowHour === 3 || nowHour === 4 || nowHour === 22 || nowHour === 23){
             nowHour = nowHour + ' часа';
+        }else{
+            nowHour = nowHour + ' часов';
         }
     };
     changeHoursLabel();
 
     let nowMinutes = new Date().getMinutes();
     let changeMinitsLabel = function(){
-        if(nowMinutes === 0 | 5-20 | 25-30 | 35-40 | 45-50 | 55-59 ){
-            nowMinutes = nowMinutes + ' минут ';
-        }else if(nowMinutes === 1 | 21 | 31 | 41 | 51 ){
+        if(nowMinutes === 1 || nowMinutes === 21 || nowMinutes === 31 || nowMinutes === 41 || nowMinutes === 51 ){
             nowMinutes = nowMinutes + ' минута ';
-        }else if(nowMinutes === 2-4 | 22-24 | 32-34 | 42-44 | 52-54 ){
+        }else if((nowMinutes >= 2 && nowMinutes <= 4) || (nowMinutes >= 22 && nowMinutes <= 24) || (nowMinutes >= 32 && nowMinutes <= 34) || (nowMinutes >= 42 && nowMinutes <= 44) || (nowMinutes >= 52 && nowMinutes <= 54)){
             nowMinutes = nowMinutes + ' минуты ';
+        }else{
+            nowMinutes = nowMinutes + ' минут ';
         }
     };
     changeMinitsLabel();
 
     let nowSeconds = new Date().getSeconds();
     let changeSecondsLable = function(){
-        if(nowSeconds === 5-20 | 25-30 | 35-40 | 45-50 | 55-59){
-            nowSeconds += ' секунд';
-        }else if(nowSeconds === 1 | 21 | 31 | 41 | 51){
-            nowSeconds += ' секунда';   
-        }else if(nowSeconds === 0-4 | 22-24 | 32-34 | 42-44 | 52-54 ){
-            nowSeconds += ' секунды';
+        if((nowSeconds >= 5 && nowSeconds <= 20) || (nowSeconds >= 25 && nowSeconds <= 30) || (nowSeconds >= 35 && nowSeconds <= 40) || (nowSeconds >= 45 && nowSeconds <= 50) || (nowSeconds >=55 && nowSeconds <= 59)){
+            nowSeconds = nowSeconds + ' секунд';
+        }else if(nowSeconds === 1 || nowSeconds === 21 || nowSeconds === 31 || nowSeconds === 41 || nowSeconds === 51){
+            nowSeconds = nowSeconds + ' секунда';
+        }else{
+            nowSeconds = nowSeconds + ' секунды';
         }
     };
     changeSecondsLable();
