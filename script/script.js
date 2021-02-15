@@ -3,9 +3,13 @@
 let todoControl = document.querySelector('.todo-control'),
     headerInput = document.querySelector('.header-input'),
     todoList = document.querySelector('.todo-list'),
-    todoCompleted = document.querySelector('.todo-completed');
-    
-var todoData = [];
+    todoCompleted = document.querySelector('.todo-completed'),
+    todoData = [];
+
+const readyArrToJSON = function (){
+    var readyJSON = JSON.stringify(todoData);
+    return readyJSON;
+};
 
 const render = function(){
     todoList.textContent = '';
@@ -13,10 +17,7 @@ const render = function(){
 
 
     todoData.forEach(function(item){
-
-        const itemIndex = todoData.indexOf(item);
-        const readyJSON = JSON.stringify(todoData[itemIndex]);
-        localStorage.setItem(item.value, readyJSON);
+        localStorage.setItem('itemList', readyArrToJSON());
 
         const li = document.createElement('li');
         li.classList.add('todo-item');
@@ -32,18 +33,20 @@ const render = function(){
         }else{todoList.append(li);}
 
         const btnTodoCompleted = li.querySelector('.todo-complete');
-
         btnTodoCompleted.addEventListener('click', function(){
             item.completed = !item.completed;
             render();
         });
 
         const btnTodoRemove = li.querySelector('.todo-remove');
-
         btnTodoRemove.addEventListener('click', function(){
-            const itemIndex = todoData.indexOf(item);
-            localStorage.removeItem(item.value);
+            if(todoData.length === 1){
+                todoData = [];
+                localStorage.clear();
+            }else{
+            var itemIndex = todoData.indexOf(item);
             todoData.splice(itemIndex, 1);
+            }
 
             render();
         });
@@ -70,11 +73,9 @@ todoControl.addEventListener('submit', function(event){
 });
 
 window.addEventListener('DOMContentLoaded',function(){
-    for(let key in localStorage){
-        if(localStorage.getItem(key) !== null){
-            todoData.push(JSON.parse(localStorage.getItem(key)));
+    if(localStorage.getItem('itemList')){
+        todoData = JSON.parse(localStorage.getItem('itemList'));
 
-            render();
-        }
+        render();
     }
 });
