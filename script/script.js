@@ -1,15 +1,13 @@
-let num = 266219; // число
-let str = num.toString(); // преобразуем в строку
-let numLenght = str.length; // вычисляем длинну
-let a = 1; // это еденица для умножения
+'use strict';
 
-for(let i = 0; i<numLenght; i++) {
-    let x = str[i]; // берем число из массива
-    a = a * x; // умножаем числа
-}
+let colorChangeButton = document.getElementById('change');
+let colorTitle = document.getElementById('color');
 
-console.log(a); // получаем результат
+var generateHexColor = function(){
+    var hexColorCode = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+    colorTitle.innerHTML = hexColorCode;
+    colorChangeButton.style.color = hexColorCode;
+    document.body.style.backgroundColor = hexColorCode;
+};
 
-console.log(a**3); // возодим в степень 3 при помощи оператора **
-
-console.log(String(a**3).slice(0, 2)); // вывод первых двух цифр 
+colorChangeButton.addEventListener('click', generateHexColor);
