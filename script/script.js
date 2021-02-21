@@ -7,7 +7,7 @@ const income = document.querySelector('.income');
 const expenses = document.querySelector('.expenses');
 const incomeButtonPlus = income.getElementsByTagName('button')[0];
 const expensesButtonPlus = expenses.getElementsByTagName('button')[0];
-const checkboxId = document.querySelector('#deposit-check');
+const depositCheck = document.querySelector('#deposit-check');
 
 const additionalIncome = document.querySelectorAll('.additional_income-item');
 
@@ -31,6 +31,9 @@ const targetInputAmount = document.querySelector('.target-amount');
 const periodInputSelect = document.querySelector('.period-select');
 const periodAmount = document.querySelector('.period-amount');
 let allTypeInputText = document.querySelectorAll('[type=text]');
+const depositBank = document.querySelector('.deposit-bank');
+const depositAmount = document.querySelector('.deposit-amount');
+const depositPercent = document.querySelector('.deposit-percent');
 
 class AppData {
     constructor(){
@@ -58,6 +61,7 @@ class AppData {
     this.getExpInc();
     
     this.getExpensesMonth();
+    this.getInfoDeposit();
     this.getBudget();
     this.getTargetMonth();
 
@@ -127,14 +131,13 @@ class AppData {
 
             if(startStr === `income`){
                 item = item.value.trim();
-                item.forEach(item => {
-                    if(item !== ''){
-                        this.addIncome.push(item);
-                    }
-                });
+                if(item !== ''){
+                    this.addIncome.push(item);
+                }
             }else if(startStr === `expenses`){
-                item = item.value.trim().split(',');
+                item = item.value.split(',');
                 item.forEach(item => {
+                    item.trim();
                     if(item !== ''){
                         this.addExpenses.push(item);
                     }
@@ -153,7 +156,8 @@ class AppData {
     }
 
     getBudget() {
-        this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+        const monthBudget =  this.moneyDeposit * (this.percentDeposit / 100);
+        this.budgetMonth = this.budget + this.incomeMonth + monthBudget - this.expensesMonth;
         this.budgetDay = this.budgetMonth / 30;
     }
 
@@ -179,6 +183,56 @@ class AppData {
         }else{
             buttonIdStart.style.display = 'none';
             
+        }
+    }
+
+    getInfoDeposit() {
+        if(this.deposit){
+            this.percentDeposit = depositPercent.value;
+            this.moneyDeposit = depositAmount.value;
+        }
+    }
+
+    changePercent(){
+        const valueSelect = this.value;
+        console.log(valueSelect);
+        if (valueSelect === `other`){
+            depositPercent.value = '';
+            depositPercent.style.display = 'inline-block';
+        }else{
+            depositPercent.style.display = 'none';
+
+            depositPercent.value = valueSelect; 
+        }
+    }
+
+    depositHandler() {
+        if(depositCheck.checked){
+            depositBank.style.display = 'inline-block';
+            depositAmount.style.display = 'inline-block';
+
+            this.deposit = true;
+
+            depositBank.addEventListener('change', this.changePercent);
+        }else{
+            depositBank.style.display = 'none';
+            depositAmount.style.display = 'none';
+
+            depositBank.value = '';
+            depositAmount.value = '';
+
+            this.deposit = false;
+
+            depositBank.removeEventListener('change', this.changePercent);
+        }
+    }
+
+    percentCheck() {
+        if (depositPercent.value > 100 || depositPercent.value < 0) {
+            alert('Введите корректное значение в поле проценты');
+            buttonIdStart.disabled = true;
+        }else{
+            buttonIdStart.disabled = false;
         }
     }
 
@@ -220,6 +274,9 @@ class AppData {
         expensesButtonPlus.addEventListener('click', this.addExpIncBlock);
         incomeButtonPlus.addEventListener('click', this.addExpIncBlock);
         buttonIdCancel.addEventListener('click', this.reset.bind(this));
+
+        depositCheck.addEventListener('change', this.depositHandler.bind(this));
+        depositPercent.addEventListener('input', this.percentCheck);
 
         document.addEventListener('input', () => {
             const inputName = document.querySelectorAll('[placeholder="Наименование"]');
