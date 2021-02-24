@@ -50,10 +50,12 @@ reg.addEventListener(`click`, event => {
         let askUsername = prompt(`Введите через пробел Имя и фамилию пользователя`);
         if(askUsername){
             let usernameArray = askUsername.split(` `);
-         
-            if(usernameArray.length > 3) {
-                alert(`Ошибка`);
-                registration();
+            if(usernameArray.length > 2){
+                do {
+                     alert(`Ошибка`);
+                     askUsername = prompt(`Введите через пробел Имя и фамилию пользователя`);
+                     usernameArray = askUsername.split(` `);
+                 } while(usernameArray.length > 2);
             }
          
             let askLogin = prompt(`Введите логин`),
