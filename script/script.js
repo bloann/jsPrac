@@ -69,7 +69,7 @@ class AppData {
         resultBudgetDay.value = Math.ceil(this.budgetDay);
         resultExpensesMonth.value = this.expensesMonth;
         resultAdditionalExpenses.value = this.addExpenses.join(', ');
-        resultAdditionalIncome.value = this.addIncome.join(' , ');
+        resultAdditionalIncome.value = this.addIncome.join(', ');
         resultTargetMonth.value = Math.ceil(this.getTargetMonth());
         resultIncomePeriod.value = this.calcSavedMoney();
 
@@ -107,7 +107,6 @@ class AppData {
             const itemTitle = item.querySelector(`.${startStr}-title`).value;
             const itemAmount = item.querySelector(`.${startStr}-amount`).value;
             if(itemTitle !== '' && itemAmount !== '') {
-                console.log([startStr]);
                 this[startStr][itemAmount] = itemAmount;
             }
         };
@@ -127,11 +126,9 @@ class AppData {
 
             if(startStr === `income`){
                 item = item.value.trim();
-                item.forEach(item => {
-                    if(item !== ''){
-                        this.addIncome.push(item);
-                    }
-                });
+                if(item !== ''){
+                    this.addIncome.push(item);
+                }
             }else if(startStr === `expenses`){
                 item = item.value.trim().split(',');
                 item.forEach(item => {
