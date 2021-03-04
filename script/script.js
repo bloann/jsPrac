@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    function countTimer(deadline) {
+    const countTimer = function (deadline) {
 
         let timerHours = document.querySelector('#timer-hours'),
             timerMinutes = document.querySelector('#timer-minutes'),
@@ -43,5 +43,7 @@ window.addEventListener('DOMContentLoaded', function() {
         updateClock();
     }
 
-    setInterval(countTimer, 1000, '1 march 2021');
+    setInterval(countTimer, 1000, '31 march 2021');
+
+
 });
