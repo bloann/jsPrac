@@ -1,8 +1,6 @@
 window.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
-    document.addEventListener('click', (e) => console.log(`target: ${e.target}`));
-
     const countTimer = (deadline) => {
 
         let timerHours = document.querySelector('#timer-hours'),
