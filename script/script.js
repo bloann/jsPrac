@@ -372,15 +372,15 @@ window.addEventListener('DOMContentLoaded', function () {
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) {
-                    startTimestamp = timestamp; 
+                    startTimestamp = timestamp;
                 }
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
 
                 if (progress < 1) {
                     window.requestAnimationFrame(step);
                 }
-            };  
+            };
             window.requestAnimationFrame(step);
         };
 
@@ -421,7 +421,7 @@ window.addEventListener('DOMContentLoaded', function () {
         });
     };
     calc(100);
-    
+
     const sendForm = () => {
         const errorMessage = 'Что-то пошло не так!',
             loadMessage = 'Загрузка...',
@@ -433,23 +433,17 @@ window.addEventListener('DOMContentLoaded', function () {
         statusMessage.style.cssText = 'margin: 10px; color: white; font-size: 2rem;';
 
         const postData = (body) => {
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-                request.addEventListener('readystatechange', () => {
+            
+            body.forEach((val, key) => {
+                body[key] = val;
+            });
 
-                    if (request.readyState !== 4) {
-                        return;
-                    }
-                    if (request.status === 200) {
-                        resolve();
-                    } else {
-                        reject(request.status);
-                    }
-                });
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'application/json');
-
-                request.send(JSON.stringify(body));
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             });
         };
 
@@ -464,23 +458,26 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 const formData = new FormData(form);
 
-                let body = {};
-                formData.forEach((val, key) => {
-                    body[key] = val;
-                });
-
-                postData(body)
-                .then(() => statusMessage.textContent = successMessage)
-                .catch(
-                    (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.error(error);
-                    }
-                );
+                postData(formData)
+                    .then((response) => {
+                        if(response.status === 200) {
+                            statusMessage.textContent = successMessage;
+                        }else {
+                            statusMessage.textContent = errorMessage;
+                            throw new Error('status network not 200');
+                        }
+                    } )
+                    .catch(
+                        (error) => {
+                            statusMessage.textContent = errorMessage;
+                            console.error(error);
+                        }
+                    );
 
                 form.querySelectorAll('input').forEach(item => item.value = '');
             });
         });
+
     };
     sendForm();
 });
