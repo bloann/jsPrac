@@ -40,8 +40,12 @@ const sendForm = () => {
                 .then((response) => {
                     if (response.status === 200) {
                         statusMessage.textContent = successMessage;
+                        const popUp = document.querySelector('.popup');
+                        popUp.setTimeout(() => popUp.style.display = 'none', 3000);
                     } else {
                         statusMessage.textContent = errorMessage;
+                        const popUp = document.querySelector('.popup');
+                        setTimeout(() => popUp.style.display = 'none', 1500);
                         throw new Error('status network not 200');
                     }
                 })
