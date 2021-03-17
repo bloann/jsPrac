@@ -25,7 +25,7 @@ const inputCheck = () => {
                             if(element.value.match(/[^a-z\@\-\_\d]/ig)){
                                 console.log(element.value);
                                 element.value = '';
-                                element.setCustomValidity('Поле неправильно заполнено');
+                                element.setCustomValidity('поле заполнено некорректно');
                             }
                         } else
                             if (element.type === 'tel') {
