@@ -9,7 +9,7 @@ class Todo {
         this.todoData = new Map(JSON.parse(localStorage.getItem('toDoList')));
     }
 
-    addToStorage(){
+    addToStorage() {
         localStorage.setItem('toDoList', JSON.stringify([...this.todoData]));
     }
 
@@ -33,16 +33,16 @@ class Todo {
         </div>
         `);
 
-        if(todo.completed){
+        if (todo.completed) {
             this.todoCompleted.append(li);
-        }else{
+        } else {
             this.todoList.append(li);
         }
     }
 
     addTodo(e) {
         e.preventDefault();
-        if(this.input.value.trim()){
+        if (this.input.value.trim()) {
             const newTodo = {
                 value: this.input.value,
                 completed: false,
@@ -52,42 +52,90 @@ class Todo {
             this.render();
             this.input.value = '';
         }
-        
+
     }
 
     generateKey() {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
 
-    // я точно не знаю зачем я сделал проверку, но пусть она будет
     deleteItem(target) {
-        if(this.todoData.has(target.key)){
+        if (this.todoData.has(target.key)) {
             this.todoData.delete(target.key);
-            this.render();
+
+            //hard lesson
+            const _this = this;
+
+            let start = Date.now();
+
+            const draw = (timePassed) => {
+                target.style.opacity = 1 - timePassed / 1000;
+            };
+
+            let timer = setInterval(function () {
+                let timePassed = Date.now() - start;
+
+                if (timePassed >= 1000) {
+                    clearInterval(timer);
+                    _this.render();
+                    return;
+                }
+
+                draw(timePassed);
+
+            }, 20);
         }
     }
 
     completedItem(target) {
-        if(this.todoData.has(target.key)){
-            this.todoData.get(target.key).completed = true;
-            this.render();
+
+        if (this.todoData.has(target.key)) {
+            
+            //hard lesson
+            const completedAnimation = (target, _this) => {
+                let start = Date.now();
+
+                const draw = (timePassed) => {
+                    target.style.right = timePassed / 0.1 + 'px';
+                };
+
+                let timer = setInterval(function () {
+                    let timePassed = Date.now() - start;
+
+                    if (timePassed >= 500) {
+                        clearInterval(timer);
+                        _this.render();
+                        return;
+                    }
+
+                    draw(timePassed);
+
+                }, 20);
+            };
+
+            if (this.todoData.get(target.key).completed) {
+                this.todoData.get(target.key).completed = false;
+                completedAnimation(target, this);
+
+            } else {
+                this.todoData.get(target.key).completed = true;
+                completedAnimation(target, this);
+            }
         }
     }
 
-    //todo item edit
-    //При повторном нажатии на кнопку редактирования происходит запоминание и рендер 
     editItem(target) {
         const targetText = target.querySelector('.text-todo');
 
-        if(targetText.getAttribute('contenteditable')){
+        if (targetText.getAttribute('contenteditable')) {
             targetText.setAttribute('contenteditable', 'false');
             this.todoData.get(target.key).value = targetText.textContent;
-            
+
             this.render();
-        }else{
+        } else {
             targetText.setAttribute('contenteditable', 'true');
         }
-        
+
     }
 
     handler() {
@@ -96,13 +144,13 @@ class Todo {
         todoContaier.addEventListener('click', (event) => {
             let target = event.target;
 
-            if(target.matches('.todo-remove')){
+            if (target.matches('.todo-remove')) {
                 this.deleteItem(target.closest('.todo-item'));
 
-            }else if(target.matches('.todo-complete')){
+            } else if (target.matches('.todo-complete')) {
                 this.completedItem(target.closest('.todo-item'));
 
-            }else if(target.matches('.todo-edit')){
+            } else if (target.matches('.todo-edit')) {
                 this.editItem(target.closest('.todo-item'));
             }
         });
